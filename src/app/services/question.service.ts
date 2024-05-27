@@ -34,6 +34,14 @@ export class QuestionService {
         type: 'email',
         order: 2,
       }),
+      new TextboxQuestion({
+        key: 'age',
+        label: 'Age',
+        type: 'number',
+        min: 2,
+        max: 18,
+        order: 4,
+      }),
     ];
     return of(questions.sort((a, b) => a.order - b.order));
   }

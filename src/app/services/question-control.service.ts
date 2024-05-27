@@ -4,44 +4,62 @@ import { QuestionBase } from './models/question-base';
 
 @Injectable()
 export class QuestionControlService {
-  toFormGroup(questions: QuestionBase<string>[]) {
-    const group: any = {};
+  /**
+   * Creates a FormControl for a given question, adding the appropriate validators based on the question's properties.
+   *
+   * @param {QuestionBase<string>} question The question object containing properties to determine validators.
+   * @returns {FormControl} The created FormControl with applied validators.
+   */
+  createFormControl(question: QuestionBase<string>): FormControl {
+    const control = new FormControl(question.value || '');
+
+    const validatorsConfig = [
+      { condition: question.required, validator: Validators.required },
+      { condition: question.type === 'email', validator: Validators.email },
+      {
+        condition: question.maxLength !== undefined,
+        validator: Validators.maxLength(question.maxLength!),
+      },
+      {
+        condition: question.minLength !== undefined,
+        validator: Validators.minLength(question.minLength!),
+      },
+      {
+        condition: question.max !== undefined,
+        validator: Validators.max(question.max!),
+      },
+      {
+        condition: question.min !== undefined,
+        validator: Validators.min(question.min!),
+      },
+      {
+        condition: question.pattern !== undefined,
+        validator: Validators.pattern(question.pattern!),
+      },
+    ];
+
+    const validators = validatorsConfig
+      .filter((config) => config.condition)
+      .map((config) => config.validator);
+
+    control.addValidators(validators);
+
+    return control;
+  }
+
+  /**
+   * Converts an array of questions into a FormGroup with corresponding FormControls.
+   *
+   * @param {QuestionBase<string>[]} questions The array of questions to convert into FormControls.
+   * @returns {FormGroup} The created FormGroup containing the FormControls for each question.
+   */
+  toFormGroup(questions: QuestionBase<string>[]): FormGroup {
+    const group: { [key: string]: FormControl } = {};
 
     questions.forEach((question) => {
-      group[question.key] = new FormControl(question.value || '');
-
-      if (question.required) {
-        group[question.key].addValidators(Validators.required);
-      }
-
-      if (question.type === 'email') {
-        group[question.key].addValidators(Validators.email);
-      }
-
-      if (question.maxLength) {
-        group[question.key].addValidators(
-          Validators.maxLength(question.maxLength)
-        );
-      }
-
-      if (question.minLength) {
-        group[question.key].addValidators(
-          Validators.minLength(question.minLength)
-        );
-      }
-
-      if (question.max) {
-        group[question.key].addValidators(Validators.max(question.max));
-      }
-
-      if (question.min) {
-        group[question.key].addValidators(Validators.min(question.min));
-      }
-
-      if (question.pattern) {
-        group[question.key].addValidators(Validators.pattern(question.pattern));
-      }
+      group[question.key] = this.createFormControl(question);
     });
+
     return new FormGroup(group);
   }
 }

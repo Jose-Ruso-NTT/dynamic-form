@@ -1,37 +1,6 @@
-<!-- REQUIRED -->
-@if (control()?.hasError('required') && (control()?.touched || control()?.dirty)
-) {
-<small> Este campo es requerido </small>
-}
-
-<!-- PATTERN -->
-@if (control()?.hasError('pattern') && (control()?.touched || control()?.dirty)
-) {
-<small> Patrón inválido </small>
-}
-
-<!-- EMAIL -->
-@if (control()?.hasError('email') && (control()?.touched || control()?.dirty) )
-{
-<small> Correo electrónico inválido </small>
-}
-
-<!-- MIN_LENGTH -->
-@if (control()?.hasError('minlength') && (control()?.touched ||
-control()?.dirty) ) {
+@if (control?.touched || control?.dirty) { @for (error of errorMessages; track
+$index) {
 <small>
-  Este campo debe tener al menos
-  {{ control()?.errors?.['minlength'].requiredLength }} caracteres pero tiene
-  {{ control()?.errors?.['minlength'].actualLength }} carácter/es.
+  {{ error }}
 </small>
-}
-
-<!-- MAX_LENGTH -->
-@if (control()?.hasError('maxlength') && (control()?.touched ||
-control()?.dirty) ) {
-<small>
-  Este campo debe tener al máximo
-  {{ control()?.errors?.['maxlength'].requiredLength }} caracteres pero tiene
-  {{ control()?.errors?.['maxlength'].actualLength }} carácter/es.
-</small>
-}
+} }
