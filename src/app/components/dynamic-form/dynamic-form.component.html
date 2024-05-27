@@ -1,19 +1,15 @@
 <div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngFor="let question of questions">
-      <!-- TODO: CAMBIARLO EN VEZ DE PASARLE EL FORM VERLO DE HACERLO CON VALUE ACCESOR -->
-      <app-dynamic-form-question
-        [question]="question"
-        [form]="form"
-      ></app-dynamic-form-question>
-    </div>
-
+    @for (question of questions(); track question) {
     <div>
-      <button type="submit">Save</button>
+      <app-dynamic-form-question [question]="question" [form]="form" />
+    </div>
+    }
+    <div style="margin-top: 20px">
+      <button type="submit" [disabled]="!form.valid">Save</button>
     </div>
   </form>
-
-  <div *ngIf="payLoad">
-    <strong>Saved the following values</strong><br />{{ payLoad }}
-  </div>
+  @if (payLoad()) {
+  <div><strong>Saved the following values</strong><br />{{ payLoad() }}</div>
+  }
 </div>

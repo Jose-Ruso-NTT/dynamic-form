@@ -15,8 +15,9 @@ import { QuestionService } from './services/question.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'dynamic-form';
+  #qs = inject(QuestionService);
 
+  title = 'dynamic-form';
   links = [
     { title: 'Explore the Docs', link: 'https://angular.dev' },
     { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
@@ -28,11 +29,11 @@ export class AppComponent implements OnInit {
     { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
   ];
 
-  service = inject(QuestionService);
-
-  questions$!: Observable<QuestionBase<any>[]>;
+  questions$!: Observable<QuestionBase<string>[]>;
 
   ngOnInit(): void {
-    this.questions$ = this.service.getQuestions();
+    this.questions$ = this.#qs.getQuestions();
   }
+
+  test() {}
 }

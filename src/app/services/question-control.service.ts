@@ -19,7 +19,27 @@ export class QuestionControlService {
       }
 
       if (question.maxLength) {
-        group[question.key].addValidators(Validators.maxLength(5));
+        group[question.key].addValidators(
+          Validators.maxLength(question.maxLength)
+        );
+      }
+
+      if (question.minLength) {
+        group[question.key].addValidators(
+          Validators.minLength(question.minLength)
+        );
+      }
+
+      if (question.max) {
+        group[question.key].addValidators(Validators.max(question.max));
+      }
+
+      if (question.min) {
+        group[question.key].addValidators(Validators.min(question.min));
+      }
+
+      if (question.pattern) {
+        group[question.key].addValidators(Validators.pattern(question.pattern));
       }
     });
     return new FormGroup(group);

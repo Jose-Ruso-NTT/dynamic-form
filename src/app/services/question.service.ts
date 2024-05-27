@@ -11,21 +11,21 @@ export class QuestionService {
   getQuestions() {
     const questions: QuestionBase<string>[] = [
       new DropdownQuestion({
-        key: 'brave',
-        label: 'Bravery Rating',
+        key: 'favoriteAnimal',
+        label: 'Favorite Animal',
         options: [
-          { key: 'solid', value: 'Solid' },
-          { key: 'great', value: 'Great' },
-          { key: 'good', value: 'Good' },
-          { key: 'unproven', value: 'Unproven' },
+          { key: 'cat', value: 'Cat' },
+          { key: 'dog', value: 'Dog' },
+          { key: 'horse', value: 'Horse' },
+          { key: 'capybara', value: 'Capybara' },
         ],
         order: 3,
       }),
       new TextboxQuestion({
         key: 'firstName',
         label: 'First name',
+        value: 'Alex',
         required: true,
-        maxLength: 3,
         order: 1,
       }),
       new TextboxQuestion({
@@ -35,7 +35,6 @@ export class QuestionService {
         order: 2,
       }),
     ];
-
     return of(questions.sort((a, b) => a.order - b.order));
   }
 }

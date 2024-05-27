@@ -39,7 +39,6 @@ export class QuestionBase<T> {
     this.minLength = options.minLength;
     this.maxLength = options.maxLength;
     this.pattern = options.pattern;
-    this.required = !!options.required;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.type = options.type || '';
