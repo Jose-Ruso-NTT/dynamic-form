@@ -11,10 +11,14 @@ export class QuestionControlService {
    * @returns {FormControl} The created FormControl with applied validators.
    */
   createFormControl(question: QuestionBase<string>): FormControl {
-    const control = new FormControl(question.value || '');
+    const control = new FormControl({
+      value: question.value || '',
+      disabled: question.disabled || false,
+    });
 
     const validatorsConfig = [
       { condition: question.required, validator: Validators.required },
+      { condition: question.requiredTrue, validator: Validators.requiredTrue },
       { condition: question.type === 'email', validator: Validators.email },
       {
         condition: question.maxLength !== undefined,

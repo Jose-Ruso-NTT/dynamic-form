@@ -42,6 +42,13 @@ export class QuestionService {
         max: 18,
         order: 4,
       }),
+      new TextboxQuestion({
+        key: 'checkbox',
+        label: 'checkbox',
+        type: 'checkbox',
+        order: 7,
+        requiredTrue: true,
+      }),
     ];
     return of(questions.sort((a, b) => a.order - b.order));
   }

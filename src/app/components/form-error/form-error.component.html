@@ -1,4 +1,4 @@
-@if (control.touched || control.dirty) {
+@if (control.invalid && (control.touched || control.dirty)) {
 <small>
   {{ errorMessage() }}
 </small>

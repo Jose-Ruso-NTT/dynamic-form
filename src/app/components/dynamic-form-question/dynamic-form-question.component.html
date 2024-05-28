@@ -1,14 +1,21 @@
 <div [formGroup]="form">
   <label [attr.for]="question().key">{{ question().label }}</label>
   <div>
-    @switch (question().controlType) { @case ('textbox') {
+    @switch (question().controlType) { @case ('textbox') { @if (question().type
+    === 'checkbox') {
+    <input
+      [formControlName]="question().key"
+      [id]="question().key"
+      type="checkbox"
+    />
+    } @else {
     <input
       [formControlName]="question().key"
       [id]="question().key"
       [type]="question().type"
     />
 
-    } @case ('dropdown') {
+    } } @case ('dropdown') {
     <select [id]="question().key" [formControlName]="question().key">
       @for (opt of question().options; track opt) {
       <option [value]="opt.key">{{ opt.value }}</option>

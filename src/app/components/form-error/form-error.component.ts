@@ -29,6 +29,8 @@ export class FormErrorComponent implements OnInit {
     merge(this.control.statusChanges, this.control.valueChanges)
       .pipe(takeUntilDestroyed(this.#destroy))
       .subscribe(() => this.#updateErrorMessage());
+
+    this.#updateErrorMessage();
   }
 
   #updateErrorMessage(): void {

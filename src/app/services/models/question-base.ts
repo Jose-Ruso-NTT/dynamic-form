@@ -1,8 +1,10 @@
 export class QuestionBase<T> {
-  value: T | undefined;
+  value?: T;
+  disabled?: boolean;
   key: string;
   label: string;
   required: boolean;
+  requiredTrue: boolean;
   min?: number;
   max?: number;
   maxLength?: number;
@@ -10,15 +12,17 @@ export class QuestionBase<T> {
   pattern?: string;
   order: number;
   controlType: string;
-  type: string;
+  type: HTMLInputTypeAttribute;
   options: KeyValue[];
 
   constructor(
     options: {
       value?: T;
+      disabled?: boolean;
       key?: string;
       label?: string;
       required?: boolean;
+      requiredTrue?: boolean;
       min?: number;
       max?: number;
       maxLength?: number;
@@ -26,14 +30,16 @@ export class QuestionBase<T> {
       pattern?: string;
       order?: number;
       controlType?: string;
-      type?: string;
+      type?: HTMLInputTypeAttribute;
       options?: KeyValue[];
     } = {}
   ) {
     this.value = options.value;
+    this.disabled = !!options.disabled;
     this.key = options.key || '';
     this.label = options.label || '';
     this.required = !!options.required;
+    this.requiredTrue = !!options.requiredTrue;
     this.min = options.min;
     this.max = options.max;
     this.minLength = options.minLength;
@@ -50,3 +56,22 @@ export interface KeyValue {
   key: string;
   value: string;
 }
+
+type HTMLInputTypeAttribute =
+  | 'checkbox'
+  | 'color'
+  | 'date'
+  | 'datetime-local'
+  | 'email'
+  | 'file'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'radio'
+  | 'range'
+  | 'tel'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week'
+  | '';
