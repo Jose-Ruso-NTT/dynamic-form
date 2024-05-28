@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuestionBase } from '../../services/models/question-base';
 import { FormErrorComponent } from '../form-error/form-error.component';
@@ -13,5 +13,5 @@ import { FormErrorComponent } from '../form-error/form-error.component';
 })
 export class DynamicFormQuestionComponent {
   question = input.required<QuestionBase<string>>();
-  form = input.required<FormGroup>();
+  @Input({ required: true }) form!: FormGroup;
 }

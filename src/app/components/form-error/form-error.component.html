@@ -1,6 +1,5 @@
-@if (control?.touched || control?.dirty) { @for (error of errorMessages; track
-$index) {
+@if (control.touched || control.dirty) {
 <small>
-  {{ error }}
+  {{ errorMessage() }}
 </small>
-} }
+}

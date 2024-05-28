@@ -1,4 +1,4 @@
-<div [formGroup]="form()">
+<div [formGroup]="form">
   <label [attr.for]="question().key">{{ question().label }}</label>
   <div>
     @switch (question().controlType) { @case ('textbox') {
@@ -17,5 +17,5 @@
     } }
   </div>
 
-  <app-form-error [control]="form().get(question().key)" />
+  <app-form-error [control]="form.get(question().key)!" />
 </div>

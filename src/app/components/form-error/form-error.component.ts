@@ -2,9 +2,9 @@ import {
   Component,
   DestroyRef,
   Input,
-  OnChanges,
-  SimpleChanges,
+  OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
@@ -17,40 +17,30 @@ import { merge } from 'rxjs';
   templateUrl: './form-error.component.html',
   styleUrl: './form-error.component.css',
 })
-export class FormErrorComponent implements OnChanges {
+export class FormErrorComponent implements OnInit {
   #destroy = inject(DestroyRef);
 
-  @Input() control: AbstractControl | null = null;
+  @Input() control!: AbstractControl;
   @Input() customErrors: { [key: string]: string } = {};
 
-  errorMessages: string[] = [];
+  errorMessage = signal('');
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['control']) {
-      this.#subscribeToControlChanges();
-    }
-    this.#updateErrorMessages();
+  ngOnInit() {
+    merge(this.control.statusChanges, this.control.valueChanges)
+      .pipe(takeUntilDestroyed(this.#destroy))
+      .subscribe(() => this.#updateErrorMessage());
   }
 
-  #subscribeToControlChanges(): void {
-    if (this.control) {
-      merge(this.control.statusChanges, this.control.valueChanges)
-        .pipe(takeUntilDestroyed(this.#destroy))
-        .subscribe(() => {
-          this.#updateErrorMessages();
-        });
-    }
-  }
-
-  #updateErrorMessages(): void {
-    if (!this.control || !this.control.errors) {
-      this.errorMessages = [];
+  #updateErrorMessage(): void {
+    if (!this.control.errors) {
+      this.errorMessage.set('');
       return;
     }
 
-    this.errorMessages = Object.keys(this.control.errors).map((key) =>
-      this.#getErrorMessage(key, this.control!.errors![key])
+    const errorMessages = Object.keys(this.control.errors).map((key) =>
+      this.#getErrorMessage(key, this.control.errors![key])
     );
+    this.errorMessage.set(errorMessages[0]);
   }
 
   #getErrorMessage(errorKey: string, errorValue: any): string {
@@ -58,7 +48,7 @@ export class FormErrorComponent implements OnChanges {
       minlength: ({ requiredLength, actualLength }) =>
         `Este campo debe tener al menos ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
       maxlength: ({ requiredLength, actualLength }) =>
-        `Este campo debe tener al máximo ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
+        `Este campo debe tener como máximo ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
       min: ({ min, actual }) =>
         `El valor mínimo de este campo debe ser ${min} pero es ${actual}.`,
       max: ({ max, actual }) =>
