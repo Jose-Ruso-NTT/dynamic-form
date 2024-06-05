@@ -8,10 +8,9 @@ describe('DynamicFormQuestionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DynamicFormQuestionComponent]
-    })
-    .compileComponents();
-    
+      imports: [DynamicFormQuestionComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DynamicFormQuestionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

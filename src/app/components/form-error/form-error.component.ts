@@ -1,11 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  Input,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
 import { merge } from 'rxjs';
@@ -40,7 +33,7 @@ export class FormErrorComponent implements OnInit {
     }
 
     const errorMessages = Object.keys(this.control.errors).map((key) =>
-      this.#getErrorMessage(key, this.control.errors![key])
+      this.#getErrorMessage(key, this.control.errors![key]),
     );
     this.errorMessage.set(errorMessages[0]);
   }
@@ -51,19 +44,13 @@ export class FormErrorComponent implements OnInit {
         `Este campo debe tener al menos ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
       maxlength: ({ requiredLength, actualLength }) =>
         `Este campo debe tener como máximo ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
-      min: ({ min, actual }) =>
-        `El valor mínimo de este campo debe ser ${min} pero es ${actual}.`,
-      max: ({ max, actual }) =>
-        `El valor máximo de este campo debe ser ${max} pero es ${actual}.`,
+      min: ({ min, actual }) => `El valor mínimo de este campo debe ser ${min} pero es ${actual}.`,
+      max: ({ max, actual }) => `El valor máximo de este campo debe ser ${max} pero es ${actual}.`,
       required: () => 'Este campo es requerido',
       pattern: () => 'Patrón inválido',
       email: () => 'Correo electrónico inválido',
     };
 
-    return (
-      this.customErrors[errorKey] ||
-      errorMessagesMap[errorKey](errorValue) ||
-      'Error desconocido'
-    );
+    return this.customErrors[errorKey] || errorMessagesMap[errorKey](errorValue) || 'Error desconocido';
   }
 }

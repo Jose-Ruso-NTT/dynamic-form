@@ -32,7 +32,7 @@ export class QuestionBase<T> {
       controlType?: string;
       type?: HTMLInputTypeAttribute;
       options?: KeyValue[];
-    } = {}
+    } = {},
   ) {
     this.value = options.value;
     this.disabled = !!options.disabled;

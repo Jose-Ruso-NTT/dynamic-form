@@ -42,9 +42,7 @@ export class QuestionControlService {
       },
     ];
 
-    const validators = validatorsConfig
-      .filter((config) => config.condition)
-      .map((config) => config.validator);
+    const validators = validatorsConfig.filter((config) => config.condition).map((config) => config.validator);
 
     control.addValidators(validators);
 

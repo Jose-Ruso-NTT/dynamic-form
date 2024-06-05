@@ -21,9 +21,7 @@ export class DynamicFormComponent {
   constructor(private qcs: QuestionControlService) {}
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(
-      this.questions() as QuestionBase<string>[]
-    );
+    this.form = this.qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
   }
 
   onSubmit() {
