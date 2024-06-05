@@ -10,7 +10,7 @@ export class QuestionControlService {
    * @param {QuestionBase<string>} question The question object containing properties to determine validators.
    * @returns {FormControl} The created FormControl with applied validators.
    */
-  createFormControl(question: QuestionBase<string>): FormControl {
+  #createFormControl(question: QuestionBase<string>): FormControl {
     const control = new FormControl({
       value: question.value || '',
       disabled: question.disabled || false,
@@ -61,7 +61,7 @@ export class QuestionControlService {
     const group: { [key: string]: FormControl } = {};
 
     questions.forEach((question) => {
-      group[question.key] = this.createFormControl(question);
+      group[question.key] = this.#createFormControl(question);
     });
 
     return new FormGroup(group);

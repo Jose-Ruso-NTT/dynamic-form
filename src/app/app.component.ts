@@ -34,6 +34,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.questions$ = this.#qs.getQuestions();
   }
-
-  test() {}
 }

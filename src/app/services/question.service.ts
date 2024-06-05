@@ -46,10 +46,11 @@ export class QuestionService {
         key: 'checkbox',
         label: 'checkbox',
         type: 'checkbox',
-        order: 7,
+        order: 5,
         requiredTrue: true,
       }),
     ];
+
     return of(questions.sort((a, b) => a.order - b.order));
   }
 }

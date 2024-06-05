@@ -20,7 +20,7 @@ import { merge } from 'rxjs';
 export class FormErrorComponent implements OnInit {
   #destroy = inject(DestroyRef);
 
-  @Input() control!: AbstractControl;
+  @Input({ required: true }) control!: AbstractControl;
   @Input() customErrors: { [key: string]: string } = {};
 
   errorMessage = signal('');
