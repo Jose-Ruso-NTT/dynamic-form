@@ -1,33 +1,40 @@
-import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Injector, Input, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AbstractControl } from '@angular/forms';
+import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
-  selector: 'app-form-error',
+  selector: '[matErrorMessages]',
   standalone: true,
-  imports: [],
-  templateUrl: './form-error.component.html',
-  styleUrl: './form-error.component.css',
+  template: '{{ error() }}',
+  styleUrl: './mat-error-messages.component.css',
 })
-export class FormErrorComponent implements OnInit {
+export class MatErrorMessagesComponent implements AfterViewInit {
   #destroy = inject(DestroyRef);
+  #inj = inject(Injector);
 
-  @Input({ required: true }) control!: AbstractControl;
   @Input() customErrors: { [key: string]: string } = {};
 
-  errorMessage = signal('');
+  error = signal('');
+  #inputRef!: MatFormFieldControl<MatInput>;
 
-  ngOnInit() {
-    this.control.statusChanges.pipe(takeUntilDestroyed(this.#destroy)).subscribe(() => this.#updateErrorMessage());
+  ngAfterViewInit(): void {
+    const container = this.#inj.get(MatFormField);
+    this.#inputRef = container._control;
+
+    this.#inputRef.ngControl?.statusChanges
+      ?.pipe(takeUntilDestroyed(this.#destroy))
+      .subscribe(() => this.#updateErrorMessage());
+
     this.#updateErrorMessage();
   }
 
   #updateErrorMessage(): void {
-    const errors = this.control.errors;
-    if (!errors) return;
+    const controlErrors = this.#inputRef.ngControl?.errors;
+    if (!controlErrors) return;
 
-    const errorMessages = Object.keys(errors).map((key) => this.#getErrorMessage(key, errors[key]));
-    this.errorMessage.set(errorMessages[0]);
+    const errorMessages = Object.keys(controlErrors).map((key) => this.#getErrorMessage(key, controlErrors[key]));
+    this.error.set(errorMessages[0]);
   }
 
   #getErrorMessage(errorKey: string, errorValue: any): string {

@@ -1,5 +1,6 @@
-<div>
+<div class="w-96">
   <form
+    class="flex flex-col gap-2"
     (ngSubmit)="onSubmit()"
     [formGroup]="form"
   >
@@ -23,6 +24,5 @@
   @if (payLoad()) {
     <div><strong>Saved the following values</strong><br />{{ payLoad() }}</div>
   }
+  {{ form.value | json }}
 </div>
-
-{{ form.value | json }}

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { Component, OnInit, inject, input, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { QuestionBase } from '../../services/models/question-base';
+import { QuestionBase } from '../../services/models/question-base.class';
 import { QuestionControlService } from '../../services/question-control.service';
 import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
 
@@ -13,15 +13,16 @@ import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-f
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.css',
 })
-export class DynamicFormComponent {
+export class DynamicFormComponent implements OnInit {
+  #qcs = inject(QuestionControlService);
+
   questions = input<QuestionBase<string>[] | null>([]);
+
   form!: FormGroup;
   payLoad = signal('');
 
-  constructor(private qcs: QuestionControlService) {}
-
-  ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
+  ngOnInit(): void {
+    this.form = this.#qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
   }
 
   onSubmit() {

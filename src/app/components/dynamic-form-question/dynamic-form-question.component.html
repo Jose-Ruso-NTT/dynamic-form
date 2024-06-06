@@ -1,21 +1,71 @@
 <div [formGroup]="form">
+  @switch (question().controlType) {
+    @case ('textbox') {
+      <mat-form-field>
+        <mat-label>{{ question().label }}</mat-label>
+        <input
+          matInput
+          [type]="question().type"
+          [formControlName]="question().key"
+          [id]="question().key"
+        />
+
+        <mat-error matErrorMessages />
+      </mat-form-field>
+    }
+    @case ('checkbox') {
+      <mat-checkbox [formControlName]="question().key">{{ question().label }}</mat-checkbox>
+      <app-form-error [control]="form.get(question().key)!" />
+    }
+    @case ('dropdown') {
+      <mat-form-field>
+        <mat-label>{{ question().label }}</mat-label>
+        <mat-select [formControlName]="question().key">
+          @for (opt of question().options; track opt) {
+            <mat-option [value]="opt.value">{{ opt.value }}</mat-option>
+          }
+        </mat-select>
+        <mat-error matErrorMessages />
+      </mat-form-field>
+    }
+    @case ('datepicker') {
+      <mat-form-field>
+        <mat-label>{{ question().label }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [formControlName]="question().key"
+        />
+        <mat-hint>{{ question().hint }}</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        />
+        <mat-datepicker #picker />
+        <mat-error matErrorMessages />
+      </mat-form-field>
+    }
+  }
+</div>
+
+<!-- NATIVE INPUTS -->
+<!-- <div [formGroup]="form">
   <label [attr.for]="question().key">{{ question().label }}</label>
   <div>
     @switch (question().controlType) {
       @case ('textbox') {
-        @if (question().type === 'checkbox') {
-          <input
-            [formControlName]="question().key"
-            [id]="question().key"
-            type="checkbox"
-          />
-        } @else {
-          <input
-            [formControlName]="question().key"
-            [id]="question().key"
-            [type]="question().type"
-          />
-        }
+        <input
+          [formControlName]="question().key"
+          [id]="question().key"
+          [type]="question().type"
+        />
+      }
+      @case ('checkbox') {
+        <input
+          [formControlName]="question().key"
+          [id]="question().key"
+          type="checkbox"
+        />
       }
       @case ('dropdown') {
         <select
@@ -31,4 +81,4 @@
   </div>
 
   <app-form-error [control]="form.get(question().key)!" />
-</div>
+</div> -->

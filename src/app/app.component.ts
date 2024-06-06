@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
-import { QuestionBase } from './services/models/question-base';
+import { QuestionBase } from './services/models/question-base.class';
 import { QuestionService } from './services/question.service';
 
 @Component({

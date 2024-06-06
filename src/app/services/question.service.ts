@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { QuestionBase } from './models/question-base';
-import { DropdownQuestion } from './models/question-dropdown';
-import { TextboxQuestion } from './models/question-textbox';
+import { QuestionBase } from './models/question-base.class';
+import { CheckboxQuestion } from './models/question-checkbox.class';
+import { DatePickerQuestion } from './models/question-date-picker.class';
+import { DropdownQuestion } from './models/question-dropdown.class';
+import { TextboxQuestion } from './models/question-textbox.class';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +26,6 @@ export class QuestionService {
       new TextboxQuestion({
         key: 'firstName',
         label: 'First name',
-        value: 'Alex',
         required: true,
         order: 1,
       }),
@@ -42,12 +43,18 @@ export class QuestionService {
         max: 18,
         order: 4,
       }),
-      new TextboxQuestion({
-        key: 'checkbox',
-        label: 'checkbox',
-        type: 'checkbox',
-        order: 5,
+      new CheckboxQuestion({
+        key: 'terms',
+        label: 'Agree terms and conditions',
+        order: 6,
         requiredTrue: true,
+      }),
+      new DatePickerQuestion({
+        key: 'fromDate',
+        label: 'Date',
+        order: 5,
+        required: true,
+        hint: 'MM/DD/YYYY',
       }),
     ];
 

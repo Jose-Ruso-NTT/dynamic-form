@@ -1,3 +1,6 @@
+import { HTMLInputTypeAttribute } from './HTMLInputTypeAttribute.type';
+import { KeyValueOptions } from './key-value-options.type';
+
 export class QuestionBase<T> {
   value?: T;
   disabled?: boolean;
@@ -13,7 +16,8 @@ export class QuestionBase<T> {
   order: number;
   controlType: string;
   type: HTMLInputTypeAttribute;
-  options: KeyValue[];
+  hint: string;
+  options: KeyValueOptions[];
 
   constructor(
     options: {
@@ -31,7 +35,8 @@ export class QuestionBase<T> {
       order?: number;
       controlType?: string;
       type?: HTMLInputTypeAttribute;
-      options?: KeyValue[];
+      options?: KeyValueOptions[];
+      hint?: string;
     } = {},
   ) {
     this.value = options.value;
@@ -49,29 +54,6 @@ export class QuestionBase<T> {
     this.controlType = options.controlType || '';
     this.type = options.type || '';
     this.options = options.options || [];
+    this.hint = options.hint || '';
   }
 }
-
-export interface KeyValue {
-  key: string;
-  value: string;
-}
-
-type HTMLInputTypeAttribute =
-  | 'checkbox'
-  | 'color'
-  | 'date'
-  | 'datetime-local'
-  | 'email'
-  | 'file'
-  | 'month'
-  | 'number'
-  | 'password'
-  | 'radio'
-  | 'range'
-  | 'tel'
-  | 'text'
-  | 'time'
-  | 'url'
-  | 'week'
-  | '';
