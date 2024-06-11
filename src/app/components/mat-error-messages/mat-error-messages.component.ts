@@ -2,6 +2,7 @@ import { AfterViewInit, Component, DestroyRef, Injector, Input, inject, signal }
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: '[matErrorMessages]',
@@ -23,10 +24,8 @@ export class MatErrorMessagesComponent implements AfterViewInit {
     this.#inputRef = container._control;
 
     this.#inputRef.ngControl?.statusChanges
-      ?.pipe(takeUntilDestroyed(this.#destroy))
+      ?.pipe(takeUntilDestroyed(this.#destroy), startWith(true))
       .subscribe(() => this.#updateErrorMessage());
-
-    this.#updateErrorMessage();
   }
 
   #updateErrorMessage(): void {

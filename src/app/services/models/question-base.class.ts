@@ -1,5 +1,5 @@
 import { HTMLInputTypeAttribute } from './HTMLInputTypeAttribute.type';
-import { KeyValueOptions } from './key-value-options.type';
+import { KeyValueOptions } from './key-value-options.interface';
 
 export class QuestionBase<T> {
   value?: T;
