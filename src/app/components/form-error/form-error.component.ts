@@ -1,6 +1,7 @@
 import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'app-form-error',
@@ -18,8 +19,9 @@ export class FormErrorComponent implements OnInit {
   errorMessage = signal('');
 
   ngOnInit() {
-    this.control.statusChanges.pipe(takeUntilDestroyed(this.#destroy)).subscribe(() => this.#updateErrorMessage());
-    this.#updateErrorMessage();
+    this.control.statusChanges
+      .pipe(takeUntilDestroyed(this.#destroy), startWith(this.control.status))
+      .subscribe(() => this.#updateErrorMessage());
   }
 
   #updateErrorMessage(): void {
