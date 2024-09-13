@@ -10,9 +10,7 @@ export class ClipboardDirective {
   /**
    * The text to be copied to the clipboard.
    */
-  @Input('appClipboard') textToCopy: string = '';
-
-  constructor() {}
+  @Input('appClipboard') textToCopy = '';
 
   /**
    * Handles the click event and copies the text to the clipboard.

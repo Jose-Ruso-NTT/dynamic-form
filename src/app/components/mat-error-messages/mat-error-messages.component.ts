@@ -14,7 +14,7 @@ export class MatErrorMessagesComponent implements AfterViewInit {
   #destroy = inject(DestroyRef);
   #inj = inject(Injector);
 
-  @Input() customErrors: { [key: string]: string } = {};
+  @Input() customErrors: Record<string, string> = {};
 
   error = signal('');
   #inputRef!: MatFormFieldControl<MatInput>;
@@ -37,7 +37,7 @@ export class MatErrorMessagesComponent implements AfterViewInit {
   }
 
   #getErrorMessage(errorKey: string, errorValue: any): string {
-    const errorMessagesMap: { [key: string]: (errorValue: any) => string } = {
+    const errorMessagesMap: Record<string, (errorValue: any) => string> = {
       minlength: ({ requiredLength, actualLength }) =>
         `Este campo debe tener al menos ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
       maxlength: ({ requiredLength, actualLength }) =>

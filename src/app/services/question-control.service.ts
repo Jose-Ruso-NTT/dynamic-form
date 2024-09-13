@@ -56,7 +56,7 @@ export class QuestionControlService {
    * @returns {FormGroup} The created FormGroup containing the FormControls for each question.
    */
   toFormGroup(questions: QuestionBase<string>[]): FormGroup {
-    const group: { [key: string]: FormControl } = {};
+    const group: Record<string, FormControl> = {};
 
     questions.forEach((question) => {
       group[question.key] = this.#createFormControl(question);

@@ -14,7 +14,7 @@ export class FormErrorComponent implements OnInit {
   #destroy = inject(DestroyRef);
 
   @Input({ required: true }) control!: AbstractControl;
-  @Input() customErrors: { [key: string]: string } = {};
+  @Input() customErrors: Record<string, string> = {};
 
   errorMessage = signal('');
 
@@ -33,7 +33,7 @@ export class FormErrorComponent implements OnInit {
   }
 
   #getErrorMessage(errorKey: string, errorValue: any): string {
-    const errorMessagesMap: { [key: string]: (errorValue: any) => string } = {
+    const errorMessagesMap: Record<string, (errorValue: any) => string> = {
       minlength: ({ requiredLength, actualLength }) =>
         `Este campo debe tener al menos ${requiredLength} caracteres pero tiene ${actualLength} carácter/es.`,
       maxlength: ({ requiredLength, actualLength }) =>
