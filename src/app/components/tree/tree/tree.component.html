@@ -1,0 +1,45 @@
+<div style="margin-bottom: 16px">
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar</mat-label>
+    <input
+      matInput
+      [(ngModel)]="filterText"
+      (ngModelChange)="applyFilter()"
+    />
+  </mat-form-field>
+</div>
+
+<mat-tree
+  [dataSource]="dataSource"
+  [treeControl]="treeControl"
+>
+  <mat-tree-node
+    *matTreeNodeDef="let node"
+    matTreeNodePadding
+  >
+    <button
+      mat-icon-button
+      disabled
+      title=""
+    ></button>
+    {{ node.name }}
+  </mat-tree-node>
+
+  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+    <div class="mat-tree-node">
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'toggle ' + node.name"
+      >
+        <mat-icon>
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+      </button>
+      {{ node.name }}
+    </div>
+    <div [class.tree-invisible]="!treeControl.isExpanded(node)">
+      <ng-container matTreeNodeOutlet></ng-container>
+    </div>
+  </mat-nested-tree-node>
+</mat-tree>
