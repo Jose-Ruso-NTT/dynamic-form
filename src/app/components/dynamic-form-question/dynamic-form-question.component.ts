@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,7 +15,6 @@ import { MatErrorMessagesComponent } from '../mat-error-messages/mat-error-messa
   selector: 'app-dynamic-form-question',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     FormErrorComponent,
     MatFormFieldModule,
@@ -23,8 +22,8 @@ import { MatErrorMessagesComponent } from '../mat-error-messages/mat-error-messa
     MatErrorMessagesComponent,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatSelectModule,
-  ],
+    MatSelectModule
+],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dynamic-form-question.component.html',
   styleUrl: './dynamic-form-question.component.css',
