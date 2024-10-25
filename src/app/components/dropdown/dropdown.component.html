@@ -1,0 +1,37 @@
+<div style="margin: auto; width: 75%">
+  <div class="contextual-menu-container">
+    <button
+      class="menu-button"
+      (click)="toggleMenu($event)"
+      (keydown)="handleKeydown($event)"
+      aria-haspopup="true"
+      [attr.aria-expanded]="isMenuOpen"
+    >
+      Opciones
+    </button>
+    @if (isMenuOpen) {
+      <ul
+        class="menu-list"
+        [class.show]="isMenuOpen"
+        role="menu"
+        (keydown)="handleKeydown($event)"
+      >
+        @for (option of options; track $index) {
+          <li
+            class="menu-item"
+            role="menuitem"
+            tabindex="0"
+            [class.selected]="$index === activeOptionIndex"
+            (click)="selectOption(option)"
+            (keydown)="handleKeydown($event, $index)"
+            [attr.data-index]="$index"
+          >
+            {{ option }}
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  {{ selectedOption }}
+</div>

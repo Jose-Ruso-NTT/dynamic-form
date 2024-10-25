@@ -1,0 +1,55 @@
+.contextual-menu-container {
+    position: relative;
+  }
+  
+  .menu-button {
+    padding: 10px 15px;
+    background-color: #6a11cb; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    transition: background-color 0.3s; /* Transición suave */
+  }
+  
+  .menu-button:hover {
+    background-color: #5a0fb1; /* Color de fondo al pasar el mouse */
+  }
+  
+  .menu-list {
+    list-style-type: none; /* Sin viñetas */
+    padding: 0; /* Sin padding */
+    margin: 0; /* Sin margen */
+    position: absolute; /* Para posicionar el menú */
+    background-color: white; /* Fondo blanco del menú */
+    border: 1px solid #ccc; /* Borde del menú */
+    border-radius: 5px; /* Bordes redondeados del menú */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    z-index: 1000; /* Asegúrate de que esté por encima */
+    display: none; /* Ocultar por defecto */
+  }
+  
+  .menu-list.show {
+    display: block; /* Mostrar el menú si la clase "show" está presente */
+  }
+  
+  .menu-item {
+    padding: 12px 20px; /* Espaciado dentro de los elementos del menú */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos del menú */
+    font-size: 14px; /* Tamaño de la fuente */
+    color: #333; /* Color del texto del elemento del menú */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  }
+  
+  .menu-item.selected {
+    background-color: #e7f0ff; /* Color de fondo para la opción seleccionada */
+    color: #6a11cb; /* Color de texto para la opción seleccionada */
+    font-weight: bold; /* Resaltar la opción seleccionada */
+  }
+  
+  .menu-item:hover {
+    background-color: #f4f4f9; /* Color de fondo al pasar el mouse */
+    color: #6a11cb; /* Cambia el color del texto al pasar el mouse */
+  }
+  

@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { QuestionBase } from './services/models/question-base.class';
 import { QuestionService } from './services/question.service';
@@ -9,7 +10,7 @@ import { QuestionService } from './services/question.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AsyncPipe, DynamicFormComponent],
+  imports: [RouterOutlet, AsyncPipe, DynamicFormComponent, DropdownComponent],
   providers: [QuestionService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
